@@ -11,7 +11,7 @@ dotenv.config({
 const jobs = require('./routes/jobs')
 
 
-app.use(jobs);
+app.use('/api/v1', jobs);
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {

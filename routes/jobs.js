@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 
-router.get('/api/v1/jobs', (req, res) => {
+router.get('/jobs', (req, res) => {
     res.status(200).json({
         success: true,
         msg: 'This route will display all jobs'
