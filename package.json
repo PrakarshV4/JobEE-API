@@ -1,0 +1,20 @@
+{
+  "name": "jobee-api",
+  "version": "1.0.0",
+  "description": "Api about jobs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "prod": "NODE_ENV=production nodemon app.js"
+  },
+  "author": "Prakarsh",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
