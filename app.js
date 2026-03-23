@@ -7,6 +7,11 @@ dotenv.config({
     path: './config/config.env'
 })
 
+// Importing all routes
+const jobs = require('./routes/jobs')
+
+
+app.use(jobs);
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
