@@ -1,11 +1,9 @@
 const express = require('express')
 const router = express.Router();
 
-router.get('/jobs', (req, res) => {
-    res.status(200).json({
-        success: true,
-        msg: 'This route will display all jobs'
-    })
-})
+const { getJobs } = require('../controllers/jobsControllers')
+
+router.route('/jobs').get(getJobs)
+
 
 module.exports = router;
