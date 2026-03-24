@@ -1,11 +1,15 @@
 const express = require('express')
 const app = express()
 const dotenv = require('dotenv')
+const connect_database = require('./config/database')
 
 // Setting up config.env file variables
 dotenv.config({
     path: './config/config.env'
 })
+
+// connecting to database
+connect_database()
 
 // Importing all routes
 const jobs = require('./routes/jobs')
