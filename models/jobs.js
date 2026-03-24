@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator') // used to validate email or any other inputs
+const slugify = require('slugify')
+
 const jobSchema = mongoose.Schema({
     title: {
         type: String,
@@ -30,7 +32,7 @@ const jobSchema = mongoose.Schema({
         }
     },
     jobType: {
-        type: String, //industry is array of string
+        type: String, 
         required: true,
         enum:{
             values: ['Permanent', 'Temporary', 'Intership'],
@@ -38,7 +40,7 @@ const jobSchema = mongoose.Schema({
         }
     },
     minEducation: {
-        type: String, //industry is array of string
+        type: String, 
         required: true,
         enum:{
             values: ['Bachelors', 'Masters', 'PHD'],
@@ -50,7 +52,7 @@ const jobSchema = mongoose.Schema({
         default: 1
     },
     experience: {
-        type: String, //industry is array of string
+        type: String, 
         required: true,
         enum:{
             values: ['No Experience', '0 - 1 years', '1 - 3 years', '3 - 5 years', '5 years+'],
@@ -73,6 +75,12 @@ const jobSchema = mongoose.Schema({
         type: [Object],
         select: false //as we don't want to displat this data to user
     }
+})
+
+// creating Job slug before saving 
+jobSchema.pre('save', function(){
+    //create a slug for currrnt title and keep in lowercase
+    this.slug = slugify(this.title, {lower: true});
 })
 
 module.exports = mongoose.model('Job', jobSchema)
