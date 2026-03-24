@@ -25,7 +25,7 @@ const jobSchema = mongoose.Schema({
         type: [String], //industry is array of string
         required: true,
         enum:{
-            values: ['Business', 'IT', 'Banking', 'Education/Training', 'Telecommunication, Others'],
+            values: ['Business', 'Information Technology', 'Banking', 'Education/Training', 'Telecommunication, Others'],
             message: 'Please select correct options'
         }
     },
@@ -53,7 +53,7 @@ const jobSchema = mongoose.Schema({
         type: String, //industry is array of string
         required: true,
         enum:{
-            values: ['No Experiece', '0 - 1 years', '1 - 3 years', '3 - 5 years', '5 years+'],
+            values: ['No Experience', '0 - 1 years', '1 - 3 years', '3 - 5 years', '5 years+'],
             message: 'Please select correct options'
         }
     },
@@ -67,7 +67,7 @@ const jobSchema = mongoose.Schema({
     },
     lastDate: {
         type: Date,
-        default: new Date.setDate(new Date.setDate() + 7)
+        default: new Date().setDate(new Date().getDate() + 7)
     },
     applicantsApplied: {
         type: [Object],
@@ -75,4 +75,4 @@ const jobSchema = mongoose.Schema({
     }
 })
 
-mongoose.exports = mongoose.model('Job', jobSchema)
+module.exports = mongoose.model('Job', jobSchema)
