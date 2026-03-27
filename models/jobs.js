@@ -27,14 +27,13 @@ const jobSchema = mongoose.Schema({
     location: {
         type: {
             type: String,
-            enum: ['Point']
+            enum: ['Point'],
+            default: 'Point'
         },
-        // coordinates: {
-        //     type: [Number],
-        //     index: '2dsphere'
-        // },
-        latitude: String,
-        longitude: String,
+        coordinates: {
+            type: [Number],
+            index: '2dsphere'
+        },
         formateedAddress: String,
         city: String,
         state: String,
@@ -50,15 +49,15 @@ const jobSchema = mongoose.Schema({
         required: true,
         enum:{
             values: ['Business', 'Information Technology', 'Banking', 'Education/Training', 'Telecommunication, Others'],
-            message: 'Please select correct options'
+            message: 'Please select correct industry options'
         }
     },
     jobType: {
         type: String, 
         required: true,
         enum:{
-            values: ['Permanent', 'Temporary', 'Intership'],
-            message: 'Please select correct options'
+            values: ['Permanent', 'Temporary', 'Internship'],
+            message: 'Please select correct jobType options'
         }
     },
     minEducation: {
@@ -66,7 +65,7 @@ const jobSchema = mongoose.Schema({
         required: true,
         enum:{
             values: ['Bachelors', 'Masters', 'PHD'],
-            message: 'Please select correct options'
+            message: 'Please select correct minEducation options'
         }
     },
     positions: {
@@ -78,7 +77,7 @@ const jobSchema = mongoose.Schema({
         required: true,
         enum:{
             values: ['No Experience', '0 - 1 years', '1 - 3 years', '3 - 5 years', '5 years+'],
-            message: 'Please select correct options'
+            message: 'Please select correct experience options'
         }
     },
     salary: {
@@ -109,13 +108,12 @@ jobSchema.pre('save', function(){
 jobSchema.pre('save', async function() {
     const loc = await geoCoder.geocode(this.address)
     
-    // console.log("geocoder location", loc)
+    console.log("geocoder location", loc[0])
 
     this.location = {
         type: 'Point',
-        latitude: loc[0].latitude,
-        longitude: loc[0].longitude,
-        formateedAddress: loc[0].formateedAddress,
+        coordinates: [loc[0].longitude, loc[0].latitude],
+        formateedAddress: loc[0].formattedAddress,
         city: loc[0].city,
         state: loc[0].state,
         zipcode: loc[0].zipcode,
