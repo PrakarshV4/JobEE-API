@@ -24,6 +24,31 @@ exports.newJob = async (req, res, next) => {
     })
 }
 
+// Update a job => /api/v1/job/:id
+exports.updateJob = async (req, res, next) => {
+    const job = await Job.findById(req.params.id);
+
+    if (!job) {
+        res.status(404).json({
+            success: false,
+            message: "Job not found"
+        })
+    }
+
+    // if job exits then update
+    job = await Job.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        success: true,
+        message: "Job is updated",
+        data: job
+    })
+}
+
+
 //Search jobs in radius => /api/v1/jobs/:zipcode/:distance
 exports.getJobsInRadius = async (req, res, next) => {
     const { zipcode, distance } = req.params
@@ -37,7 +62,7 @@ exports.getJobsInRadius = async (req, res, next) => {
     
     const radius = Number(distance) / 3963; // 3963 is the radius of earth in miles
     console.log(radius)
-    
+
     const jobs = await Job.find({
         // mongo provides us a way to search in radius
         "location.coordinates": {
