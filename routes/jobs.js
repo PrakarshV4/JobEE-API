@@ -6,10 +6,12 @@ const { newJob } = require('../controllers/jobsControllers')
 const { getJobsInRadius } = require('../controllers/jobsControllers')
 const { updateJob } = require('../controllers/jobsControllers')
 const { deleteJob } = require('../controllers/jobsControllers')
+const { getJob } = require('../controllers/jobsControllers')
 
 // GET
 router.route('/jobs').get(getJobs)
 router.route('/jobs/:zipcode/:distance').get(getJobsInRadius)
+router.route('/jobs/:id/:slug').get(getJob)
 
 // POST
 router.route('/job/new').post(newJob)
