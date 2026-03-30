@@ -26,7 +26,7 @@ exports.newJob = async (req, res, next) => {
 
 // Update a job => /api/v1/job/:id
 exports.updateJob = async (req, res, next) => {
-    const job = await Job.findById(req.params.id);
+    let job = await Job.findById(req.params.id);
 
     if (!job) {
         res.status(404).json({
