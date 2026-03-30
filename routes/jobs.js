@@ -11,7 +11,7 @@ const { getJob } = require('../controllers/jobsControllers')
 // GET
 router.route('/jobs').get(getJobs)
 router.route('/jobs/:zipcode/:distance').get(getJobsInRadius)
-router.route('/jobs/:id/:slug').get(getJob)
+router.route('/job/:id/:slug').get(getJob)
 
 // POST
 router.route('/job/new').post(newJob)

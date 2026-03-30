@@ -70,7 +70,7 @@ exports.deleteJob = async (req, res, next) => {
 }
 
 
-// Get a single job using id and slug => /api/v1/jobs/:id/:slug
+// Get a single job using id and slug => /api/v1/job/:id/:slug
 exports.getJob = async (req, res, next) => {
     let job = await Job.findById(req.params.id);
 
