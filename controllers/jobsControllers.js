@@ -49,6 +49,27 @@ exports.updateJob = async (req, res, next) => {
 }
 
 
+// Delete a job = /api/v1/job/:id
+exports.deleteJob = async (req, res, next) => {
+    let job = await Job.findById(req.params.id);
+
+    if (!job) {
+        res.status(404).json({
+            status: false,
+            message: 'Job not found'
+        })
+    }
+
+    job = await Job.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+        status: true,
+        message: "Job deleted sucessfully",
+        data: job
+    })
+}
+
+
 //Search jobs in radius => /api/v1/jobs/:zipcode/:distance
 exports.getJobsInRadius = async (req, res, next) => {
     const { zipcode, distance } = req.params
