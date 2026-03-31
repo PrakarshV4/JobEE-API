@@ -117,3 +117,29 @@ exports.getJobsInRadius = async (req, res, next) => {
         data: jobs
     })
 }
+
+// Get stats about a topic(jobs) => /api/v1/stats/:topic
+exports.jobStats = async (req, res, next) => {
+    const stats = await Job.aggregate(
+        {
+            $match : { $text : { $search : "\"" + req.params.topic + "\"" }}
+        },
+        {
+            $group : {
+                avgSalary : {$avg: "$salary"}
+            }
+        }
+    )
+
+    if (stats.length === 0) {
+        res.statys(404).json({
+            sucess: false,
+            message: `No jobs found for topic: ${req.params.topic}`
+        })
+    }
+    
+    res.status(200).json({
+        msg: "success",
+        data: stats
+    })
+}
