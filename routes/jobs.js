@@ -24,4 +24,9 @@ router.route('/job/:id').put(updateJob)
 // DELETE
 router.route('/job/:id').delete(deleteJob)
 
+// TEST
+router.get('/test-error', (req, res, next) => {
+    Promise.reject(new Error("Test unhandled rejection"));
+});
+
 module.exports = router;
