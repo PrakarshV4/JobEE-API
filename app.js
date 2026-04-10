@@ -9,6 +9,15 @@ dotenv.config({
     path: './config/config.env'
 })
 
+// Handling Uncaught Exception
+process.on('uncaughtException', err => {
+    console.log(`Err: ${err.message}`)
+    console.log(`Shutting down the server due to uncaught exception`)
+    server.close(() => {
+        process.exit(1)
+    })
+}) 
+
 // connecting to database
 connect_database()
 
@@ -37,3 +46,5 @@ process.on('unhandledRejection', err => {
         process.exit(1)
     })
 }) 
+
+// console.log(sdjkafh) Test case for uncaught exception
